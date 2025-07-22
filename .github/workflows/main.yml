@@ -1,0 +1,28 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]  # Run on pushes to main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # Check out your code
+
+      # (Optional) Build step for frameworks like Jekyll/React
+      # - run: npm install && npm run build  # For React/Vue
+      # - run: bundle install && bundle exec jekyll build  # For Jekyll
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./  # Or './dist' if you built your site
+
+      - name: Deploy
+        uses: actions/deploy-pages@v4
